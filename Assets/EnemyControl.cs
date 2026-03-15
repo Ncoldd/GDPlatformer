@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     public float moveSpeed = 2f;
-    public float patrolDistance = 1f;
+    public float patrolDistance = 3f;
 
     private Vector3 startPosition;
     private int direction = 1; // 1 = right, -1 = left

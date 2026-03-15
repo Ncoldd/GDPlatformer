@@ -11,12 +11,12 @@ public class GameOverManager : MonoBehaviour
 
     void Start()
     {
-        int finalScore = PlayerPrefs.GetInt("FinalScore");
-        scoreText.text = "Final Score: " + finalScore;
+        scoreText.text = "Final Score: " + GameManager.Instance.score;
     }
 
     public void GoAgain()
     {
+        GameManager.Instance.ResetGame();
         SceneManager.LoadScene("GameScene");
     }
 }

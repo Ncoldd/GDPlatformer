@@ -7,8 +7,6 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
 
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI scoreText;
 
     public float moveSpeed = 5f;
     public float jumpForce = 12f;
@@ -16,13 +14,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded = false;
 
-    private int health = 100;
-    private int score = 0;
-
     // Start is called before the first frame update
     void Start()
     {
-        UpdateUI();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -44,13 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            health -= 10;
-            UpdateUI();
-
-            if (health <= 0)
-            {
-                GameOver();
-            }
+            GameManager.Instance.TakeDamage(10);
         }
 
         if (collision.gameObject.CompareTag("Ground"))
@@ -71,44 +59,14 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Coin"))
         {
-            score += 10;
+            GameManager.Instance.AddScore(10);
             Destroy(other.gameObject);
-            UpdateUI();
-
-            if (score >= 90)
-            {
-                GameOver();
-            }
         }
 
         if (other.CompareTag("Enemy"))
         {
-            TakeDamage(10);
+            GameManager.Instance.TakeDamage(10);
         }
-    }
-
-    void TakeDamage(int damage)
-    {
-        health -= damage;
-        Debug.Log("Player Health: " + health);
-
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    void UpdateUI()
-    {
-        healthText.text = "Health: " + health;
-        scoreText.text = "Score: " + score;
-    }
-
-    void GameOver()
-    {
-        PlayerPrefs.SetInt("FinalScore", score);
-        SceneManager.LoadScene("GameOver");
-        Debug.Log("Game Finished!");
     }
 
 }
