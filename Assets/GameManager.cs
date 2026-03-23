@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.backgroundMusic);
         DontDestroyOnLoad(gameObject); // survive scene changes
     }
 
@@ -31,6 +32,11 @@ public class GameManager : MonoBehaviour
     {
         score += amount;
         OnScoreChanged?.Invoke(score); // notify listeners
+
+        if (score >= 90)
+        {
+            TriggerGameOver();
+        }
     }
 
     public void TakeDamage(int amount)
@@ -43,10 +49,6 @@ public class GameManager : MonoBehaviour
             TriggerGameOver();
         }
 
-        if (score >= 90)
-        {
-            TriggerGameOver();
-        }
     }
 
     public void TriggerGameOver()

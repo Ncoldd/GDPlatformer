@@ -16,7 +16,10 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.OnScoreChanged += UpdateScore;
         GameManager.Instance.OnHealthChanged += UpdateHealth;
         GameManager.Instance.OnGameOver += HandleGameOver;
-    
+
+        //Events only fire when something changes.
+        //Scene loads - nothing to be changed
+        //Manually initialize v
         UpdateScore(GameManager.Instance.score);
         UpdateHealth(GameManager.Instance.health);
     }
